@@ -1,0 +1,4 @@
+{
+	"mongoURI": "mongodb+srv://dlee2015:dlee2015@cluster0-yhnsy.mongodb.net/test?retryWrites=true&w=majority",
+	"jwtSecret": "belloworld"
+}
