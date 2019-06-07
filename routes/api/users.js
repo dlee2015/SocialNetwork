@@ -8,7 +8,7 @@ const config = require('config');
 
 const { check, validationResult } = require('express-validator/check');
 
-const User = require('../../models/User').default;
+const User = require('../../models/User');
 
 //create an account
 router.post(
