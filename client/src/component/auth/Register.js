@@ -1,7 +1,8 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { setAlert } from '../../actions/alert';
+import { setAlert } from '../../store/actions/alert';
+import { register } from '../../store/actions/auth';
 import PropTypes from 'prop-types';
 
 const Register = props => {
@@ -89,7 +90,8 @@ const Register = props => {
 };
 
 Register.propTypes = {
-	setAlert: PropTypes.func.isRequired
+	setAlert: PropTypes.func.isRequired,
+	register: PropTypes.func.isRequired
 };
 
 const mapStateToProps = state => {
@@ -98,7 +100,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		setAlert: (msg, alertType) => dispatch(setAlert(msg, alertType))
+		setAlert: (msg, alertType) => dispatch(setAlert(msg, alertType)),
+		register: ({ name, email, password }) =>
+			dispatch(register({ name, email, password }))
 	};
 };
 
