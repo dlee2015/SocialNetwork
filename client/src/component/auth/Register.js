@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { setAlert } from '../../store/actions/alert';
 import { register } from '../../store/actions/auth';
 import PropTypes from 'prop-types';
@@ -26,9 +26,13 @@ const Register = props => {
 		if (password !== password2) {
 			props.setAlert('passwords do not match', 'danger');
 		} else {
-			console.log('success');
+			props.register({ name, email, password });
 		}
 	};
+
+	if (props.isAuthenticated) {
+		return <Redirect to='/dashboard' />;
+	}
 
 	return (
 		<Fragment>
@@ -44,7 +48,6 @@ const Register = props => {
 						name='name'
 						value={name}
 						onChange={e => onChange(e)}
-						required
 					/>
 				</div>
 				<div className='form-group'>
@@ -67,7 +70,6 @@ const Register = props => {
 						name='password'
 						value={password}
 						onChange={e => onChange(e)}
-						minLength='6'
 					/>
 				</div>
 				<div className='form-group'>
@@ -77,10 +79,9 @@ const Register = props => {
 						value={password2}
 						onChange={e => onChange(e)}
 						name='password2'
-						minLength='6'
 					/>
 				</div>
-				<input type='submit' className='btn btn-primary' value='Register' />
+				<input type='submit' className='btn btn-primary' value='Login' />
 			</form>
 			<p className='my-1'>
 				Already have an account? <Link to='/login'>Sign In</Link>
@@ -95,7 +96,9 @@ Register.propTypes = {
 };
 
 const mapStateToProps = state => {
-	return {};
+	return {
+		isAuthenticated: state.auth.isAuthenticated
+	};
 };
 
 const mapDispatchToProps = dispatch => {

@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { login } from '../../store/actions/auth';
 
 const Login = props => {
 	const [formData, setFormData] = useState({
@@ -18,8 +19,13 @@ const Login = props => {
 
 	const onSubmit = async e => {
 		e.preventDefault();
-		console.log('success');
+		props.login(email, password);
 	};
+
+	//Redirect when logged in
+	if (props.isAuthenticated) {
+		return <Redirect to='/dashboard' />;
+	}
 
 	return (
 		<Fragment>
@@ -51,7 +57,7 @@ const Login = props => {
 						minLength='6'
 					/>
 				</div>
-				<input type='submit' className='btn btn-primary' value='Register' />
+				<input type='submit' className='btn btn-primary' value='Login' />
 			</form>
 			<p className='my-1'>
 				Don't have an account? <Link to='/register'>Sign Up</Link>
@@ -61,11 +67,15 @@ const Login = props => {
 };
 
 const mapStateToProps = state => {
-	return {};
+	return {
+		isAuthenticated: state.auth.isAuthenticated
+	};
 };
 
-const mapDispatchToProps = dispatach => {
-	return {};
+const mapDispatchToProps = dispatch => {
+	return {
+		login: (email, password) => dispatch(login(email, password))
+	};
 };
 
 export default connect(
