@@ -11,6 +11,9 @@ import setAuthToken from './utils/setAuthToken';
 import Dashboard from './component/dashboard/Dashboard';
 import PrivateRoute from './component/routing/PrivateRoute';
 import CreateProfile from './component/profile-form/CreateProfile';
+import EditProfile from './component/profile-form/EditProfile';
+import AddExperience from './component/profile-form/AddExperience';
+import AddEducation from './component/profile-form/AddEducation';
 
 //REDUX
 import { Provider } from 'react-redux';
@@ -42,6 +45,21 @@ const App = () => {
 								exact
 								path='/create-profile'
 								component={CreateProfile}
+							/>
+							<PrivateRoute
+								exact
+								path='/edit-profile'
+								component={EditProfile}
+							/>
+							<PrivateRoute
+								exact
+								path='/add-experience'
+								component={AddExperience}
+							/>
+							<PrivateRoute
+								exact
+								path='/add-education'
+								component={AddEducation}
 							/>
 						</Switch>
 					</section>
