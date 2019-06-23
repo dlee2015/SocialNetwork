@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 import Spinner from '../layout/Spinner';
 import DashboardActions from './DashboardActions';
 
+import Experiences from './Experience';
+import Education from './Education';
+
 import { getCurrentProfile } from '../../store/actions/profile';
 
 const Dashboard = props => {
@@ -23,6 +26,8 @@ const Dashboard = props => {
 			{props.account.profile !== null ? (
 				<Fragment>
 					<DashboardActions />
+					<Experiences experiences={props.account.profile.experience} />
+					<Education educations={props.account.profile.education} />
 				</Fragment>
 			) : (
 				<Fragment>
