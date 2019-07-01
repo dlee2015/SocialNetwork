@@ -2,7 +2,13 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 
+import { deleteExperience } from '../../store/actions/profile';
+
 const Education = props => {
+	const deleteExperience = async key => {
+		props.deleteExperience(key);
+	};
+
 	const experiences = props.experiences.map(exp => (
 		<tr key={exp._id}>
 			<td>{exp.company}</td>
@@ -16,7 +22,12 @@ const Education = props => {
 				)}
 			</td>
 			<td>
-				<button className='btn btn-danger'>Delete</button>
+				<button
+					className='btn btn-danger'
+					onClick={() => deleteExperience(exp._id)}
+				>
+					Delete
+				</button>
 			</td>
 		</tr>
 	));
@@ -39,7 +50,13 @@ const Education = props => {
 	);
 };
 
+const mapDispatchToState = dispatch => {
+	return {
+		deleteExperience: key => dispatch(deleteExperience(key))
+	};
+};
+
 export default connect(
 	null,
-	null
+	mapDispatchToState
 )(Education);

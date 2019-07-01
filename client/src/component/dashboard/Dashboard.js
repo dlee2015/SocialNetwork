@@ -7,12 +7,18 @@ import DashboardActions from './DashboardActions';
 import Experiences from './Experience';
 import Education from './Education';
 
-import { getCurrentProfile } from '../../store/actions/profile';
+import { getCurrentProfile, deleteAccount } from '../../store/actions/profile';
 
 const Dashboard = props => {
 	useEffect(() => {
 		props.currentProfile();
+		console.log(props);
+		// eslint-disable-next-line
 	}, []);
+
+	const deleteAccount = () => {
+		props.deleteAccount();
+	};
 
 	return props.account.loading && props.account.profile == null ? (
 		<Spinner />
@@ -26,8 +32,17 @@ const Dashboard = props => {
 			{props.account.profile !== null ? (
 				<Fragment>
 					<DashboardActions />
-					<Experiences experiences={props.account.profile.experience} />
-					<Education educations={props.account.profile.education} />
+					{props.account.profile.experience.length == 0 ? null : (
+						<Experiences experiences={props.account.profile.experience} />
+					)}
+					{props.account.profile.education.length == 0 ? null : (
+						<Education educations={props.account.profile.education} />
+					)}
+					<div className='my-2'>
+						<button className='btn btn-danger' onClick={() => deleteAccount()}>
+							<i className='fas fa-user-minute' /> Delete my account
+						</button>
+					</div>
 				</Fragment>
 			) : (
 				<Fragment>
@@ -50,7 +65,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return {
-		currentProfile: () => dispatch(getCurrentProfile())
+		currentProfile: () => dispatch(getCurrentProfile()),
+		deleteAccount: () => dispatch(deleteAccount())
 	};
 };
 

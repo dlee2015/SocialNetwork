@@ -2,7 +2,13 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import Moment from 'react-moment';
 
+import { deleteEducation } from '../../store/actions/profile';
+
 const Education = props => {
+	const deleteEducation = async key => {
+		props.deleteEducation(key);
+	};
+
 	const educations = props.educations.map(edu => (
 		<tr key={edu._id}>
 			<td>{edu.school}</td>
@@ -16,7 +22,12 @@ const Education = props => {
 				)}
 			</td>
 			<td>
-				<button className='btn btn-danger'>Delete</button>
+				<button
+					className='btn btn-danger'
+					onClick={() => deleteEducation(edu._id)}
+				>
+					Delete
+				</button>
 			</td>
 		</tr>
 	));
@@ -39,7 +50,13 @@ const Education = props => {
 	);
 };
 
+const mapDispatchToProps = dispatch => {
+	return {
+		deleteEducation: key => dispatch(deleteEducation(key))
+	};
+};
+
 export default connect(
 	null,
-	null
+	mapDispatchToProps
 )(Education);
