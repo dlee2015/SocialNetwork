@@ -17,10 +17,10 @@ const Navbar = props => {
 				</Link>
 			</li>
 			<li>
-				<a onClick={props.logout} href='#!'>
+				<Link to='/' onClick={props.logout}>
 					<i className='fas fa-sign-out-alt' />
 					<span className='hide-sm'>Logout</span>
-				</a>
+				</Link>
 			</li>
 		</ul>
 	);
