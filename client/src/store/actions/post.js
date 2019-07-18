@@ -12,8 +12,5 @@ export const getPosts = () => async dispatch => {
 		});
 	} catch (err) {
 		console.error(err);
-		dispatch({
-			type: POSTS_ERROR
-		});
 	}
 };
