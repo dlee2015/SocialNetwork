@@ -3,14 +3,14 @@ const cors = require('cors');
 const connectDB = require('./config/db');
 require('dotenv').config();
 
-const path = require('path');
-
 const app = express();
 app.use(cors());
 connectDB();
 
 //Init Middleware
 app.use(express.json({ extended: false }));
+
+//app.get('/', (req, res) => res.send('api running'));
 
 //defining routes
 app.use('/api/users', require('./routes/api/users'));
