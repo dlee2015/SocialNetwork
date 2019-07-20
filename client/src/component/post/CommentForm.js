@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
 
-import { addPost } from '../../store/actions/post';
+import { addComment } from '../../store/actions/post';
 
-const PostForm = ({ addPost }) => {
+const CommentForm = ({ addComment, postId }) => {
 	const [text, setText] = useState('');
 
 	return (
 		<div class='post-form'>
 			<div class='bg-primary p'>
-				<h3>Say something...</h3>
+				<h3>Leave A Comment</h3>
 			</div>
 			<form
 				class='form my-1'
 				onSubmit={e => {
 					e.preventDefault();
-					addPost({ text });
+					addComment(postId, { text });
 					setText('');
 				}}
 			>
@@ -36,5 +36,5 @@ const PostForm = ({ addPost }) => {
 
 export default connect(
 	null,
-	{ addPost }
-)(PostForm);
+	{ addComment }
+)(CommentForm);
